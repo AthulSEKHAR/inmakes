@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+
+ This is the cart page pace your order
+
+{% endblock %}
+{% block title %}
+       Cart-GO Shopeeee
+{% endblock %}
+
+
+
+{% block body %}
+
+{% if not cart_items %}
+<div>
+    <div>
+
+        <h1>Your shopping cart is empty</h1>
+        <br>
+
+
+        <p>Please click<a href="{% url 'EC_app:allpdcat' %}">Here to continue shopping</a> </p>
+    </div>
+</div>
+{% else %}
+<div>
+    <div>
+
+        <h1>Your Shopping Cart</h1>
+        <br>
+    </div>
+</div>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+    <table class="table table-success table-striped" style="width:90%;height:200px;font-size:14px;">
+        <thead style="font-weight:normal;text_transform:uppercase;letter-spacing:.2em;background-color:white">
+        <tr>
+            <th colspan="5">
+                Your items
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for cart_item in cart_items %}
+        <tr>
+            <td>
+                <a href ="cart_item.product.get_absolute_url"><img src="{{cart_item.product.image.url}}"  style="width:70%;height:200px;" alt="oops"></a>
+            </td>
+            <td style="text_transform:uppercase;letter-spacing:.1em">
+                {{cart_item.product.name}}
+                <br>
+                SKU :{{cart_item_product.id}}
+                <br>
+                price:$ {{cart_item.product.price}}
+                <br>
+                Qty : {{cart_item.quantity}} x $ {{cart_item}}
+
+            <td>
+            ${{cart_item.sub_total}}
+        </td>
+
+   {% if cart_item.quantity < cart_item.product.stock %}
+            <td>
+                <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                <a href ="{% url 'cart_app:add_cart' cart_item.product.id %}">
+                    <button type="button" class="btn btn-secondary"><i class="fa-solid fa-plus"> </i></button>
+                </a>
+                &nbsp;<a href="{% url 'cart_app:cart_remove' cart_item.product.id %}">
+                    <button type="button" class="btn btn-secondary"><i class="fa-solid fa-minus"></i></button>
+                </a>
+                &nbsp;<a href="{% url 'cart_app:full_remove' cart_item.product.id %}">
+                   <button type="button" class="btn btn-secondary"> <i class="fa-solid fa-trash"></i></button>
+
+                </a>
+                </div>
+            </td>
+            {% else %}
+            <td>&nbsp;
+                <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+
+                &nbsp;<a href="{% url 'cart_app:cart_remove' cart_item.product.id %}">
+                    <button type="button" class="btn btn-secondary"><i class="fa-solid fa-minus"></i></button>
+                </a>
+                &nbsp;<a href="{% url 'cart_app:full_remove' cart_item.product.id %}">
+                   <button type="button" class="btn btn-secondary"> <i class="fa-solid fa-trash"></i></button>
+
+                </a>
+                </div>
+
+                &nbsp;
+            </td>
+          {% endif %}
+
+        </tr>
+
+{% endfor %}
+        </tbody>
+    </table>
+        </div>
+        <div class="col-md-2"></div>
+
+
+        <div class="col-md-4">
+        <table class="table table-info table-striped" style="width:400px;font-size:25px;">
+            <thead style="font-weight:normal;text_transform:uppercase;letter-spacing:.2em;">
+            <tr>
+                <th colspan="5">
+                    Checkout
+                </th>
+
+            </tr>
+
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    Please review your cart
+                </td>
+            </tr>
+            <tr>
+                <td style="letter-spacing:.1em;color:red;">
+
+                Your total is : $ {{total}}
+
+                </td>
+
+
+
+            </tr>
+            </tbody>
+        </table>
+
+
+
+
+ <a class="nav-link active" href="{% url 'EC_app:allpdcat' %}">
+      <button type="button" class="btn btn-success">GO...Continue Shopping</button>
+          </a>
+
+
+
+
+
+
+</div>
+
+
+
+{% endif %}
+
+</div>
+</div>
+{% endblock %}

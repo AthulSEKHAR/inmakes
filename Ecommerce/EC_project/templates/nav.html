@@ -1,0 +1,49 @@
+{% load static %}
+
+
+<div class="collapse {% if 'EC_app' in request.path %} active {% endif %}" id="navbarToggleExternalContent">
+  <div class="bg-secondary p-4">
+      <h5 class="text-dark h4">Shop here............</h5>
+
+<ul >
+            <li><a class="nav-link" style="color:white;font-family: 'Oswald', sans-serif;" href="{% url 'EC_app:allpdcat' %}">ALL Products</a></li>
+             {% for cat in links %}
+            <li>
+
+                <a class="nav-link" style="color:white;font-family: 'Oswald', sans-serif;" href="{{cat.get_url}}">{{cat.name}}</a>
+            </li>
+            {% endfor %}
+</ul>
+
+  </div>
+</div>
+<nav class="navbar" style="background-color:#e3f2fd;">
+  <div class="container-fluid">
+
+      <a class="nav-link active" href="{% url 'EC_app:allpdcat' %}">
+      <button type="button" class="btn btn-secondary">Home</button>
+          </a>
+{%  if item_count > 0 %}
+       <a class="nav-link active" href="{% url 'cart_app:cart_detail' %}">
+      <button type="button" class="btn btn-secondary"  style="right:5%;top:20%;position:absolute;"><i class="fa-solid fa-cart-shopping"></i>{{item_count}}</button>
+          </a>
+
+{% endif %}
+       <form class="d-flex" style="left:75%;position:absolute;" action="{% url 'search:searchresult' %}" method="get">
+                {% csrf_token %}
+      <input class="form-control me-2"  type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success"  type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </form>
+
+
+
+
+    <button type="button" class="btn btn-secondary" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </div>
+</nav>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+<br>

@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+   {% if category %}
+           {{ category.description|truncatewords:155 }}
+
+   {% else %}
+         welcome to shopeee
+
+   {% endif %}
+{% endblock %}
+{% block title %}
+       {% if category %}
+           {{ category.name }} - shopee
+
+       {% else %}
+         see our collections
+
+       {% endif %}
+{% endblock %}
+
+{% block body %}
+
+   {% if category %}
+<div>
+    <div>
+
+        <p><a href="{% url 'EC_app:allpdcat' %}">Our Product Collections</a></p>
+    </div>
+</div>
+
+{% endif %}
+<div>
+
+     {% if category %}
+
+<div>
+
+     <img src="{{category.image.url}}" style="width:100%;height:450px" alt="{{category.name}}">
+        </div>
+</div>
+
+<br>
+<h4>See the collections</h4>
+<div>
+
+    <h1>{{category.name}}</h1>
+     <p>{{category.description}}</p>
+
+
+</div>
+    {% else %}
+<div class="container-fluid">
+
+<img src="{% static 'image/shopeeee.png' %}" style="width:100%;height:450px" alt="our products">
+</div>
+<br>
+
+<div class="card">
+  <h2 class="card-header">ABOUT US</h2>
+  <div class="card-body">
+
+    <p class="card-text" style="color:black;font-family: 'Roboto', sans-serif;font-size:25px;">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+
+  </div>
+</div>
+
+
+{% endif %}
+
+
+<br>
+<div class="container-fluid">
+    <div class="row">
+{% for product in products %}
+
+        <div class="col-lg-4 col-md-6">
+            <div class="class" >
+
+
+  <a href="{{product.get_url}}"><img src="{{product.image.url}}" style="width:50%;height:300px" alt="{{product.name}}"></a>
+<div>
+
+    <h1 style="color:black;font-family: 'Oswald', sans-serif;font-size:20px;">{{product.name}}</h1>
+   <p style="color:black;font-family: 'Oswald', sans-serif;"> <b>{{product.price}}</b></p>
+
+</div>
+
+</div>
+</div>
+    {% endfor %}
+    </div>
+</div>
+
+
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
